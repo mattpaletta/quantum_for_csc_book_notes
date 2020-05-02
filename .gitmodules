@@ -1,0 +1,6 @@
+[submodule "exercises/abseil-cpp"]
+	path = exercises/abseil-cpp
+	url = https://github.com/abseil/abseil-cpp
+[submodule "exercises/tensorflow"]
+	path = exercises/tensorflow
+	url = https://github.com/tensorflow/tensorflow
