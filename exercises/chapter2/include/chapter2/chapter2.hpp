@@ -1,23 +1,38 @@
+#pragma once
+
 #include <complex>
 #include <array>
 #include <iostream>
-
 
 namespace quantum {
 	template<std::size_t M, std::size_t N, class T>
 	using matrix = std::array<std::array<T, N>, M>;
 
 	template<class T, std::size_t M, std::size_t N>
+	void fill(matrix<M, N, T>& a, const T& b) {
+		for (int i = 0; i < M; ++i) {
+			for (int j = 0; j < N; ++j) {
+				a[i][j] = b;
+			}
+		}
+	}
+
+	template<class T, std::size_t N>
+	void to_string(const std::array<T, N>& a) {
+		std::cout << "[";
+		for (int j = 0; j < N; ++j) {
+			std::cout << a[j];
+			if (j != N - 1) {
+			std::cout << " ";
+			}
+		}
+		std::cout << "]" << std::endl;
+	}
+
+	template<class T, std::size_t M, std::size_t N>
 	void to_string(const matrix<M, N, T>& a) {
 		for (int i = 0; i < M; ++i) {
-			std::cout << "[";
-			for (int j = 0; j < N; ++j) {
-				std::cout << a[i][j];
-				if (j != N - 1) {
-				std::cout << " ";
-				}
-			}
-			std::cout << "]" << std::endl;
+			to_string(a[i]);
 		}
 	}
 
@@ -113,6 +128,17 @@ namespace quantum {
 		return out;
 	}
 
+	template<class T, std::size_t M, std::size_t N>
+	matrix<N, M, T> transpose(const matrix<M, N, T>& a) {
+		matrix<N, M, T> out;
+		for (int i = 0; i < M; ++i) {
+			for (int j = 0; j < N; ++j) {
+				out[i][j] = a[j][i];
+			}
+		}
+		return out;
+	}
+
 	template<class T, std::size_t M, std::size_t N, std::size_t P>
 	matrix<M, P, T> multiply(const matrix<M, N, T>& a, const matrix<N, P, T>& b) {
 		auto get_element = [&a, &b](std::size_t j, std::size_t k) {
@@ -127,6 +153,40 @@ namespace quantum {
 			for (std::size_t k = 0; k < P; ++k) {
 				out[j][k] = get_element(j, k);
 			}
+		}
+		return out;
+	}
+
+	template<class T, std::size_t M>
+	matrix<M, 1, T> vector_to_matrix(const std::array<T, M>& b) {
+		matrix<M, 1, T> out;
+		for (std::size_t j = 0; j < M; ++j) {
+			out[j][0] = b[j];
+		}
+		return out;
+	}
+
+	template<class T, std::size_t M, std::size_t N>
+	std::array<T, M> multiply(const matrix<M, N, T>& a, const std::array<T, N>& b) {
+		auto get_element = [&a, &b](std::size_t j) {
+			T out = 0;
+			for (std::size_t x = 0; x < N; ++x) {
+				out += (a[j][x] * b[x]);
+			}
+			return out;
+		};
+		std::array<T, M> out;
+		for (std::size_t j = 0; j < M; ++j) {
+			out[j] = get_element(j);
+		}
+		return out;
+	}
+
+	template<class T, std::size_t N>
+	std::array<T, N> multiply(const std::array<T, N>& a, const std::array<T, N>& b) {
+		std::array<T, N> out;
+		for (std::size_t j = 0; j < N; ++j) {
+			out[j] = a[j] * b[j];
 		}
 		return out;
 	}
@@ -166,7 +226,7 @@ namespace quantum {
 	}
 
 	template<class T, std::size_t M, std::size_t N>
-	bool is_equal(const matrix<M, N, T>& a, const matrix<M, N, T>& b) {
+	bool is_equal(const matrix<M, N, std::complex<T>>& a, const matrix<M, N, std::complex<T>>& b) {
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < N; ++j) {
 				if (!approximatelyEqual(a[i][j].real(), b[i][j].real()) || !approximatelyEqual(a[i][j].imag(), b[i][j].imag())) {
@@ -178,15 +238,17 @@ namespace quantum {
 	}
 
 	template<class T, std::size_t M, std::size_t N>
-	matrix<N, M, T> transpose(const matrix<M, N, T>& a) {
-		matrix<N, M, T> out;
+	bool is_equal(const matrix<M, N, T>& a, const matrix<M, N, T>& b) {
 		for (int i = 0; i < M; ++i) {
 			for (int j = 0; j < N; ++j) {
-				out[i][j] = a[j][i];
+				if (!approximatelyEqual(a[i][j], b[i][j])) {
+					return false;
+				}
 			}
 		}
-		return out;
+		return true;
 	}
+
 
 	template<class T, std::size_t N>
 	bool is_symmetric(const matrix<N, N, T>& a) {

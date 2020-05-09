@@ -2,7 +2,7 @@
 #include <catch2/catch.hpp>
 #include <cmath>
 
-#include "complex.hpp"
+#include <chapter1/chapter1.hpp>
 
 TEST_CASE("example 1.1.2", "[chapter 1]") {
 	std::complex<float> a{-3, 1};

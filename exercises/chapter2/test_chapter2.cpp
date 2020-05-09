@@ -2,7 +2,7 @@
 #include <catch2/catch.hpp>
 #include <cmath>
 
-#include "complex.hpp"
+#include <chapter2/chapter2.hpp>
 
 TEST_CASE("programming drill 2.1.1 addition", "[chapter 2]") {
 	using comp = std::complex<float>;
