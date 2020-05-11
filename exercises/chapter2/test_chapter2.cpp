@@ -84,11 +84,11 @@ TEST_CASE("programming drill 2.2.1 addition", "[chapter 2]") {
 	const comp z2{6, 2};
 	const comp z3{0.53, -6};
 
-	const std::array<comp, 3> x{x1, x2, x3};
-	const std::array<comp, 3> y{y1, y2, y3};
-	const std::array<comp, 3> z{z1, z2, z3};
-
-	const quantum::matrix<3, 3, comp> mat{x, y, z};
+	const quantum::matrix<3, 3, comp> mat{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 
 	const auto result = quantum::addition(mat, mat);
 	for (int i = 0; i < 3; ++i) {
@@ -112,11 +112,11 @@ TEST_CASE("programming drill 2.2.1 inverse", "[chapter 2]") {
 	const comp z2{6, 2};
 	const comp z3{0.53, -6};
 
-	const std::array<comp, 3> x{x1, x2, x3};
-	const std::array<comp, 3> y{y1, y2, y3};
-	const std::array<comp, 3> z{z1, z2, z3};
-
-	const quantum::matrix<3, 3, comp> mat{x, y, z};
+	const quantum::matrix<3, 3, comp> mat{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 
 	const auto result = quantum::inverse(mat);
 	for (int i = 0; i < 3; ++i) {
@@ -140,11 +140,11 @@ TEST_CASE("programming drill 2.2.1 scalar", "[chapter 2]") {
 	const comp z2{6, 2};
 	const comp z3{0.53, -6};
 
-	const std::array<comp, 3> x{x1, x2, x3};
-	const std::array<comp, 3> y{y1, y2, y3};
-	const std::array<comp, 3> z{z1, z2, z3};
-
-	const quantum::matrix<3, 3, comp> mat{x, y, z};
+	const quantum::matrix<3, 3, comp> mat{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 
 	const auto result = quantum::scalar(mat, std::complex<float>{0, 0});
 	for (int i = 0; i < 3; ++i) {
@@ -168,11 +168,11 @@ TEST_CASE("programming drill 2.2.2", "[chapter 2]") {
 	const comp Az2{0, 0};
 	const comp Az3{4, 0};
 
-	const std::array<comp, 3> Ax{Ax1, Ax2, Ax3};
-	const std::array<comp, 3> Ay{Ay1, Ay2, Ay3};
-	const std::array<comp, 3> Az{Az1, Az2, Az3};
-
-	const quantum::matrix<3, 3, comp> matA{Ax, Ay, Az};
+	const quantum::matrix<3, 3, comp> matA{{{
+		{Ax1, Ax2, Ax3},
+		{Ay1, Ay2, Ay3},
+		{Az1, Az2, Az3}
+	}}};
 
 	const comp Bx1{5, 0};
 	const comp Bx2{2, -1};
@@ -186,11 +186,11 @@ TEST_CASE("programming drill 2.2.2", "[chapter 2]") {
 	const comp Bz2{2, 7};
 	const comp Bz3{0, 0};
 
-	const std::array<comp, 3> Bx{Bx1, Bx2, Bx3};
-	const std::array<comp, 3> By{By1, By2, By3};
-	const std::array<comp, 3> Bz{Bz1, Bz2, Bz3};
-
-	const quantum::matrix<3, 3, comp> matB{Bx, By, Bz};
+	const quantum::matrix<3, 3, comp> matB{{{
+		{Bx1, Bx2, Bx3},
+		{By1, By2, By3},
+		{Bz1, Bz2, Bz3}
+	}}};
 
 	const comp Cx1{26, -52};
 	const comp Cx2{60, 24};
@@ -204,11 +204,11 @@ TEST_CASE("programming drill 2.2.2", "[chapter 2]") {
 	const comp Cz2{15, 22};
 	const comp Cz3{20, -22};
 
-	const std::array<comp, 3> Cx{Cx1, Cx2, Cx3};
-	const std::array<comp, 3> Cy{Cy1, Cy2, Cy3};
-	const std::array<comp, 3> Cz{Cz1, Cz2, Cz3};
-
-	const quantum::matrix<3, 3, comp> matC{Cx, Cy, Cz};
+	const quantum::matrix<3, 3, comp> matC{{{
+		{Cx1, Cx2, Cx3},
+		{Cy1, Cy2, Cy3},
+		{Cz1, Cz2, Cz3}
+	}}};
 
 	const auto result = quantum::multiply(matA, matB);
 	for (int i = 0; i < 3; ++i) {
@@ -264,19 +264,20 @@ TEST_CASE("programming drill 2.6.1 equal", "[chapter 2]") {
 	const comp x1{5, 0};
 	const comp x2{4, 5};
 	const comp x3{6, -16};
-	const std::array<comp, 3> x{x1, x2, x3};
 
 	const comp y1{4, -5};
 	const comp y2{13, 0};
 	const comp y3{7, 0};
-	const std::array<comp, 3> y{y1, y2, y3};
 
 	const comp z1{6, 16};
 	const comp z2{7, 0};
 	const comp z3{-2.1, 0};
-	const std::array<comp, 3> z{z1, z2, z3};
 
-	const quantum::matrix<3, 3, comp> A{x, y, z};
+	const quantum::matrix<3, 3, comp> A{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 	CHECK(quantum::is_equal(A, A));
 	CHECK(!quantum::is_equal(A, quantum::inverse(A)));
 }
@@ -286,19 +287,20 @@ TEST_CASE("programming drill 2.6.1 transpose", "[chapter 2]") {
 	const comp x1{5, 0};
 	const comp x2{4, 5};
 	const comp x3{6, -16};
-	const std::array<comp, 3> x{x1, x2, x3};
 
 	const comp y1{4, -5};
 	const comp y2{13, 0};
 	const comp y3{7, 0};
-	const std::array<comp, 3> y{y1, y2, y3};
 
 	const comp z1{6, 16};
 	const comp z2{7, 0};
 	const comp z3{-2.1, 0};
-	const std::array<comp, 3> z{z1, z2, z3};
 
-	const quantum::matrix<3, 3, comp> A{x, y, z};
+	const quantum::matrix<3, 3, comp> A{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 	for (int i = 0; i < 3; ++i) {
 		for (int j = 0; j < 3; ++j) {
 			CHECK(quantum::transpose(A)[i][j] == A[j][i]);
@@ -311,19 +313,20 @@ TEST_CASE("programming drill 2.6.1 hermitian", "[chapter 2]") {
 	const comp x1{5, 0};
 	const comp x2{4, 5};
 	const comp x3{6, -16};
-	const std::array<comp, 3> x{x1, x2, x3};
 
 	const comp y1{4, -5};
 	const comp y2{13, 0};
 	const comp y3{7, 0};
-	const std::array<comp, 3> y{y1, y2, y3};
 
 	const comp z1{6, 16};
 	const comp z2{7, 0};
 	const comp z3{-2.1, 0};
-	const std::array<comp, 3> z{z1, z2, z3};
 
-	const quantum::matrix<3, 3, comp> A{x, y, z};
+	const quantum::matrix<3, 3, comp> A{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 	CHECK(quantum::is_hermitian(A) == true);
 }
 
@@ -344,7 +347,11 @@ TEST_CASE("programming drill 2.6.2 unitary", "[chapter 2]") {
 	const comp z3{0, 1};
 	const std::array<comp, 3> z{z1, z2, z3};
 
-	const quantum::matrix<3, 3, comp> A{x, y, z};
+	const quantum::matrix<3, 3, comp> A{{{
+		{x1, x2, x3},
+		{y1, y2, y3},
+		{z1, z2, z3}
+	}}};
 	CHECK(quantum::is_unitary(A) == true);
 }
 
@@ -357,15 +364,15 @@ TEST_CASE("programming drill 2.7.1 small tensor product", "[chapter 2]") {
 	const comp b{4};
 	const comp c{5};
 
-	const quantum::matrix<2, 1, comp> A = {{
+	const quantum::matrix<2, 1, comp> A{{{
 		{x},
 		{y}
-	}};
-	const quantum::matrix<3, 1, comp> B = {{
+	}}};
+	const quantum::matrix<3, 1, comp> B{{{
 		{a},
 		{b},
 		{c}
-	}};
+	}}};
 	const auto result = quantum::tensor_product(A, B);
 
 	const std::array<comp, 6> values{
@@ -400,25 +407,25 @@ TEST_CASE("programming drill 2.7.1 large tensor product", "[chapter 2]") {
 	const comp b21{0, 1};
 	const comp b22{2, 9};
 
-	const quantum::matrix<2, 2, comp> A = {{
+	const quantum::matrix<2, 2, comp> A{{{
 		{a00, a01},
 		{a10, a11},
-	}};
-	const quantum::matrix<3, 3, comp> B = {{
+	}}};
+	const quantum::matrix<3, 3, comp> B{{{
 		{b00, b01, b02},
 		{b10, b11, b12},
 		{b20, b21, b22}
-	}};
+	}}};
 	const auto result = quantum::tensor_product(A, B);
 
-	const quantum::matrix<6, 6, comp> values = {{
+	const quantum::matrix<6, 6, comp> values{{{
 		{a00 * b00, a00 * b01, a00 * b02, a01 * b00, a01 * b01, a01 * b02},
 		{a00 * b10, a00 * b11, a00 * b12, a01 * b10, a01 * b11, a01 * b12},
 		{a00 * b20, a00 * b21, a00 * b22, a01 * b20, a01 * b21, a01 * b22},
 		{a10 * b00, a10 * b01, a10 * b02, a11 * b00, a11 * b01, a11 * b02},
 		{a10 * b10, a10 * b11, a10 * b12, a11 * b10, a11 * b11, a11 * b12},
 		{a10 * b20, a10 * b21, a10 * b22, a11 * b20, a11 * b21, a11 * b22},
-	}};
+	}}};
 
 	for (std::size_t i = 0; i < 6; ++i) {
 		for (std::size_t j = 0; j < 6; ++j) {

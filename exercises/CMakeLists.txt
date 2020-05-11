@@ -51,7 +51,7 @@ endif()
 
 
 find_package(Catch2 REQUIRED)
-find_package(Protobuf REQUIRED) # Required for tensorflow
+enable_testing()
 
 add_subdirectory(chapter1)
 add_subdirectory(chapter2)

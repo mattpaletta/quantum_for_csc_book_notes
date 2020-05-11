@@ -11,3 +11,5 @@ install(FILES ${_HDRS} DESTINATION include/chapter4)
 
 add_executable(test_chapter4 test_chapter4.cpp)
 target_link_libraries(test_chapter4 chapter4 Catch2::Catch2)
+
+add_test(chapter4 test_chapter4)

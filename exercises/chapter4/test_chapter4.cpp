@@ -9,11 +9,12 @@
 
 TEST_CASE("programming drill 4.1.1 find probability of state", "[chapter4]") {
 	// The particle can be in 4 positions
-	constexpr std::array<std::complex<double>, 4> state = {{
+	constexpr std::array<std::complex<double>, 4> state{{
 				{-3, -1},
 				{0, -2},
 				{0, 1},
-				{2, 0}}};
+				{2, 0}
+	}};
 	// simulate the first quantum system described in this section
 	CHECK(quantum::prob_of_particle_at_pos(2, state) == Approx(0.052631 /* 0.052624 */));
 
@@ -80,10 +81,10 @@ TEST_CASE("example 4.2.3", "[chapter4]") {
 
 
 TEST_CASE("programming drill 4.2.1 calculate mean", "[chapter4]") {
-	const quantum::matrix<2, 2, std::complex<float>> state {{
+	const quantum::matrix<2, 2, std::complex<float>> state{{{
 		{{ {1, 0}, {0, -1} }},
 		{{ {0, 1}, {2, 0} }}
-	}};
+	}}};
 
 	const std::array<std::complex<float>, 2> ket = {{
 		{std::sqrt(2.f) / 2.f, 0},
@@ -94,10 +95,10 @@ TEST_CASE("programming drill 4.2.1 calculate mean", "[chapter4]") {
 }
 
 TEST_CASE("programming drill 4.2.1 calculate variance", "[chapter4]") {
-	const quantum::matrix<2, 2, std::complex<float>> state {{
+	const quantum::matrix<2, 2, std::complex<float>> state{{{
 		{{ {1, 0}, {0, -1} }},
 		{{ {0, 1}, {2, 0} }}
-	}};
+	}}};
 
 	const std::array<std::complex<float>, 2> ket = {{
 		{std::sqrt(2.f) / 2.f, 0},

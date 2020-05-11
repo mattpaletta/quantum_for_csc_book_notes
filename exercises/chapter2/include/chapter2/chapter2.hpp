@@ -6,7 +6,28 @@
 
 namespace quantum {
 	template<std::size_t M, std::size_t N, class T>
-	using matrix = std::array<std::array<T, N>, M>;
+	class matrix {
+		using dtype = std::array<std::array<T, N>, M>;
+	public:
+		constexpr matrix() : data() {}
+		constexpr matrix(const dtype& _d) : data(_d) {}
+		~matrix() {}
+		
+		constexpr T get(const std::size_t& i, const std::size_t& j) const {
+			return this->data[i][j];
+		}
+
+		std::array<T, N>& operator[](const std::size_t& i) {
+			return this->data[i];	
+		}
+		
+		std::array<T, N> operator[](const std::size_t& i) const {
+			return this->data[i];	
+		}
+	
+	private:
+		dtype data;
+	};
 
 	template<class T, std::size_t M, std::size_t N>
 	void fill(matrix<M, N, T>& a, const T& b) {

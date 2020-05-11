@@ -3,6 +3,7 @@
 #include <iostream>
 #include <complex>
 #include <cassert>
+#include <algorithm>
 
 #include <chapter3/chapter3.hpp>
 
@@ -92,24 +93,24 @@ namespace quantum {
 		constexpr T reduced_planck_constant = h<T>;
 
 		template<class T>
-		const matrix<2, 2, std::complex<T>> Sx = scalar<std::complex<T>, 2, 2>({{
+		const matrix<2, 2, std::complex<T>> Sx = scalar<std::complex<T>, 2, 2>({{{
 				{std::complex<T>{0, 0}, std::complex<T>{1, 0}},
 				{std::complex<T>{1, 0}, std::complex<T>{0, 0}}
-			}},
+			}}},
 			std::complex<T>{h<T> / 2});
 
 		template<class T>
-		const matrix<2, 2, std::complex<T>> Sy = scalar<std::complex<T>, 2, 2>({{
+		const matrix<2, 2, std::complex<T>> Sy = scalar<std::complex<T>, 2, 2>({{{
 				{std::complex<T>{0, 0}, std::complex<T>{0, -1}},
 				{std::complex<T>{0, 1}, std::complex<T>{0,  0}}
-			}},
+			}}},
 			std::complex<T>{h<T> / 2});
 
 		template<class T>
-		const matrix<2, 2, std::complex<T>> Sz = scalar<std::complex<T>, 2, 2>({{
+		const matrix<2, 2, std::complex<T>> Sz = scalar<std::complex<T>, 2, 2>({{{
 				{std::complex<T>{1, 0}, std::complex<T>{0,  0}},
 				{std::complex<T>{0, 0}, std::complex<T>{-1, 0}}
-			}},
+			}}},
 			std::complex<T>{h<T> / 2});
 
 		template<class T>
