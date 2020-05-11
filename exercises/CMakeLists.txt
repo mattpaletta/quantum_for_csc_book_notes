@@ -123,7 +123,7 @@ add_custom_target(list_tf_targets
 	USES_TERMINAL
 	DEPENDS configure_bazel
 	WORKING_DIRECTORY ${TENSORFLOW_DIR}
-	COMMAND bazel query 'attr(visibility, "//visibility:public", //tensorflow:*)')
+	COMMAND bazel query "attr(visibility, \"//visibility:public\", //tensorflow:*)")
 
 add_custom_target(configure_tf
 	USES_TERMINAL

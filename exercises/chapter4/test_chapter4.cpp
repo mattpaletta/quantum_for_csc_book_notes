@@ -2,6 +2,9 @@
 #include <catch2/catch.hpp>
 #include <cmath>
 
+#include <iostream>
+#include <complex>
+
 #include <chapter4/chapter4.hpp>
 
 TEST_CASE("programming drill 4.1.1 find probability of state", "[chapter4]") {
@@ -38,7 +41,68 @@ TEST_CASE("programming drill 4.1.1 describe probability of transition", "[chapte
 	const std::array<std::complex<double>, 2> bra_values{{
 		{0, -1},
 		{-1, 0}}};
+	// Check we calculated the `bra` correctly
 	CHECK(bra[0] == constant * bra_values[0]);
 
-	CHECK(quantum::prob_of_particle_from_transition(start_state, end_state) == std::complex<double>{0, 1});
+	// Verify the transition
+	CHECK(quantum::prob_of_particle_from_transition(start_state, end_state).real() == Approx(0));
+	CHECK(quantum::prob_of_particle_from_transition(start_state, end_state).imag() == Approx(-1));
+}
+
+template<class T, std::size_t M, std::size_t N>
+void check_matrix(const quantum::matrix<M, N, std::complex<T>>& Sa, const quantum::matrix<M, N, std::complex<T>>& Sb) {
+	for (int i = 0; i < M; ++i) {
+		for (int j = 0; j < N; ++j) {
+			CHECK(Sa[i][j].real() == Approx(Sb[i][j].real()));
+			CHECK(Sa[i][j].imag() == Approx(Sb[i][j].imag()));
+		}
+	}
+}
+
+TEST_CASE("example 4.2.3", "[chapter4]") {
+	const std::complex<float> constant{0, 2};
+
+	// [Sx, Sy] = 2iSz
+	check_matrix(
+		quantum::commutator(quantum::spin::Sx<float>, quantum::spin::Sy<float>),
+		quantum::scalar(quantum::spin::Sz<float>, constant));
+
+	// [Sy, Sz] = 2iSx
+	check_matrix(
+		quantum::commutator(quantum::spin::Sy<float>, quantum::spin::Sz<float>),
+		quantum::scalar(quantum::spin::Sx<float>, constant));
+
+	// [Sz, Sx] = 2iSy
+	check_matrix(
+		quantum::commutator(quantum::spin::Sz<float>, quantum::spin::Sx<float>),
+		quantum::scalar(quantum::spin::Sy<float>, constant));
+}
+
+
+TEST_CASE("programming drill 4.2.1 calculate mean", "[chapter4]") {
+	const quantum::matrix<2, 2, std::complex<float>> state {{
+		{{ {1, 0}, {0, -1} }},
+		{{ {0, 1}, {2, 0} }}
+	}};
+
+	const std::array<std::complex<float>, 2> ket = {{
+		{std::sqrt(2.f) / 2.f, 0},
+		{0, std::sqrt(2.f) / 2.f}
+	}};
+
+	CHECK(quantum::calculate_mean(state, ket).real() == Approx(2.5));
+}
+
+TEST_CASE("programming drill 4.2.1 calculate variance", "[chapter4]") {
+	const quantum::matrix<2, 2, std::complex<float>> state {{
+		{{ {1, 0}, {0, -1} }},
+		{{ {0, 1}, {2, 0} }}
+	}};
+
+	const std::array<std::complex<float>, 2> ket = {{
+		{std::sqrt(2.f) / 2.f, 0},
+		{0, std::sqrt(2.f) / 2.f}
+	}};
+
+	CHECK(quantum::calculate_variance(state, ket).real() == Approx(0.25));
 }

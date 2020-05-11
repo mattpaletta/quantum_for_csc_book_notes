@@ -72,6 +72,16 @@ namespace quantum {
 		return out;
 	}
 
+	template<class T, std::size_t M, std::size_t N>
+	matrix<M, N, T> subtraction(const matrix<M, N, T>& a, const matrix<M, N, T>& b) {
+		matrix<M, N, T> out;
+		for (std::size_t i = 0; i < M; ++i) {
+			// Add -b, equivalent of addition
+			out[i] = addition(a[i], scalar(b[i], T{-1}));
+		}
+		return out;
+	}
+
 	template<class T>
 	std::complex<T> conjugate(const std::complex<T>& a) {
 		return {a.real(),  a.imag() * -1.0f};
@@ -199,6 +209,21 @@ namespace quantum {
 		}
 		return out;
 	}
+
+	template<class T, std::size_t M, std::size_t N, std::size_t P>
+	matrix<M, P, T> dot(const matrix<M, N, T>& a, const matrix<N, P, T>& b) {
+		const auto b_trans = transpose(b);
+		matrix<M, P, T> out;
+		for (int i = 0; i < M; ++i) {
+			for (int j = 0; j < P; ++j) {
+				// First row a, dot first column of b
+				out[i][j] = dot(a[i], b_trans[j]);
+			}
+		}
+
+		return out;
+	}
+
 
 	template<class T, std::size_t N>
 	std::complex<T> norm(const std::array<std::complex<T>, N>& a) {
