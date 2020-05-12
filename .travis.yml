@@ -30,3 +30,9 @@ script:
     - cd build
     - cmake -DUSE_WERROR=ON ../exercises
     - cmake --build .
+
+
+notifications:
+  email:
+    on_failure: change
+    on_success: never
