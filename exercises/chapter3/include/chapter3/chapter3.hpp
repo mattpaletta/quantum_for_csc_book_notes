@@ -37,7 +37,7 @@ namespace quantum {
 		// Setup the bullet from each slit going through each target
 		for (std::size_t i = slit_offset; i < num_slits + slit_offset; ++i) {
 			auto start_vertex = 2 * i + 1;
-			for (int j = 0; j < num_targets; ++j) {
+			for (std::size_t j = 0; j < num_targets; ++j) {
 				out[j + start_vertex][i] = 1.f / (float) num_targets;
 			}
 		}

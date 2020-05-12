@@ -1,0 +1,32 @@
+language: cpp
+sudo: required
+cache: ccache
+
+os: linux
+dist: bionic
+
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    packages:
+      - wget
+
+env:
+  - CMAKE_BUILD_TYPE=Release
+  - CMAKE_BUILD_TYPE=Debug
+  #- CMAKE_BUILD_TYPE=MinSizeRel
+  #- CMAKE_BUILD_TYPE=RelWithDebInfo
+
+install:
+   - mkdir -p build
+   - export CMAKE_MAJOR_VERSION=3.16
+   - export CMAKE_MINOR_VERSION=5
+   - wget -q https://cmake.org/files/v${CMAKE_MAJOR_VERSION}/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}-Linux-x86_64.sh && mkdir /opt/cmake && sh ./cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}-Linux-x86_64.sh --prefix=/opt/cmake --skip-license && sudo ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake && rm ./cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}-Linux-x86_64.sh && export PATH=/usr/local/bin:$PATH
+
+script:
+    - cd build
+    - cmake ..
+    - cmake --build .

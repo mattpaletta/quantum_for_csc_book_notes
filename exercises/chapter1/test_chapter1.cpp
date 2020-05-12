@@ -63,8 +63,8 @@ TEST_CASE("programming drill 1.2.1 conjugate c1", "[chapter 1]") {
 	CHECK(quantum::conjugate(c1) + quantum::conjugate(c2) == quantum::conjugate(c1 + c2));
 }
 
-const double pi() { return std::atan(1)*4; }
-const double to_radians(const double a) { return (pi() * a) / 180; }
+const double pi { std::atan(1) * 4 };
+double to_radians(const double a) { return (pi * a) / 180; }
 
 TEST_CASE("programming drill 1.3.2 polar c1", "[chapter 1]") {
 	std::complex<float> c1{1, -1};

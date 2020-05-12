@@ -1,7 +1,7 @@
 project(quantum_notes)
 cmake_minimum_required(VERSION 3.8)
 
-option(JS_ONLY "Compiles to native JS (No WASM)" OFF)
+option(USE_WERROR "Compiles using WError" ON)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release." FORCE)
@@ -30,6 +30,12 @@ IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
   )
 ENDIF()
 
+if (USE_WERROR)
+	set(DEF_COMPILE_OPTIONS "-Werror" "-Wall" "-Wextra")
+elseif(${CMAKE_BUILD_TYPE} STREQUAL "DEBUG")
+	set(DEF_COMPILE_OPTIONS "-Wall" "-Wextra")
+endif()
+
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/public")
 #add_executable(a ${SOURCES})
 
@@ -57,3 +63,4 @@ add_subdirectory(chapter1)
 add_subdirectory(chapter2)
 add_subdirectory(chapter3)
 add_subdirectory(chapter4)
+add_subdirectory(chapter5)

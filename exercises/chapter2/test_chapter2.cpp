@@ -335,17 +335,14 @@ TEST_CASE("programming drill 2.6.2 unitary", "[chapter 2]") {
 	const comp x1{1.0f/sqrt(2), 0};
 	const comp x2{1.0f/sqrt(2), 0};
 	const comp x3{0, 0};
-	const std::array<comp, 3> x{x1, x2, x3};
 
 	const comp y1{0, -1/sqrt(2)};
 	const comp y2{0, 1/sqrt(2)};
 	const comp y3{0, 0};
-	const std::array<comp, 3> y{y1, y2, y3};
 
 	const comp z1{0, 0};
 	const comp z2{0, 0};
 	const comp z3{0, 1};
-	const std::array<comp, 3> z{z1, z2, z3};
 
 	const quantum::matrix<3, 3, comp> A{{{
 		{x1, x2, x3},

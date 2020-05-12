@@ -31,8 +31,8 @@ namespace quantum {
 
 	template<class T, std::size_t M, std::size_t N>
 	void fill(matrix<M, N, T>& a, const T& b) {
-		for (int i = 0; i < M; ++i) {
-			for (int j = 0; j < N; ++j) {
+		for (std::size_t i = 0; i < M; ++i) {
+			for (std::size_t j = 0; j < N; ++j) {
 				a[i][j] = b;
 			}
 		}
@@ -41,7 +41,7 @@ namespace quantum {
 	template<class T, std::size_t N>
 	void to_string(const std::array<T, N>& a) {
 		std::cout << "[";
-		for (int j = 0; j < N; ++j) {
+		for (std::size_t j = 0; j < N; ++j) {
 			std::cout << a[j];
 			if (j != N - 1) {
 			std::cout << " ";
@@ -52,7 +52,7 @@ namespace quantum {
 
 	template<class T, std::size_t M, std::size_t N>
 	void to_string(const matrix<M, N, T>& a) {
-		for (int i = 0; i < M; ++i) {
+		for (std::size_t i = 0; i < M; ++i) {
 			to_string(a[i]);
 		}
 	}
@@ -162,8 +162,8 @@ namespace quantum {
 	template<class T, std::size_t M, std::size_t N>
 	matrix<N, M, T> transpose(const matrix<M, N, T>& a) {
 		matrix<N, M, T> out;
-		for (int i = 0; i < M; ++i) {
-			for (int j = 0; j < N; ++j) {
+		for (std::size_t i = 0; i < M; ++i) {
+			for (std::size_t j = 0; j < N; ++j) {
 				out[i][j] = a[j][i];
 			}
 		}
@@ -235,8 +235,8 @@ namespace quantum {
 	matrix<M, P, T> dot(const matrix<M, N, T>& a, const matrix<N, P, T>& b) {
 		const auto b_trans = transpose(b);
 		matrix<M, P, T> out;
-		for (int i = 0; i < M; ++i) {
-			for (int j = 0; j < P; ++j) {
+		for (std::size_t i = 0; i < M; ++i) {
+			for (std::size_t j = 0; j < P; ++j) {
 				// First row a, dot first column of b
 				out[i][j] = dot(a[i], b_trans[j]);
 			}
@@ -273,8 +273,8 @@ namespace quantum {
 
 	template<class T, std::size_t M, std::size_t N>
 	bool is_equal(const matrix<M, N, std::complex<T>>& a, const matrix<M, N, std::complex<T>>& b) {
-		for (int i = 0; i < M; ++i) {
-			for (int j = 0; j < N; ++j) {
+		for (std::size_t i = 0; i < M; ++i) {
+			for (std::size_t j = 0; j < N; ++j) {
 				if (!approximatelyEqual(a[i][j].real(), b[i][j].real()) || !approximatelyEqual(a[i][j].imag(), b[i][j].imag())) {
 					return false;
 				}
@@ -285,8 +285,8 @@ namespace quantum {
 
 	template<class T, std::size_t M, std::size_t N>
 	bool is_equal(const matrix<M, N, T>& a, const matrix<M, N, T>& b) {
-		for (int i = 0; i < M; ++i) {
-			for (int j = 0; j < N; ++j) {
+		for (std::size_t i = 0; i < M; ++i) {
+			for (std::size_t j = 0; j < N; ++j) {
 				if (!approximatelyEqual(a[i][j], b[i][j])) {
 					return false;
 				}
