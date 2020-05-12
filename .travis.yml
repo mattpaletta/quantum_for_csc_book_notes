@@ -28,5 +28,5 @@ install:
 
 script:
     - cd build
-    - cmake ..
+    - cmake -DUSE_WERROR=ON ../exercises
     - cmake --build .

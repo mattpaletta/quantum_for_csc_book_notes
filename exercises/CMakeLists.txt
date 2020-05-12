@@ -1,7 +1,7 @@
 project(quantum_notes)
 cmake_minimum_required(VERSION 3.8)
 
-option(USE_WERROR "Compiles using WError" ON)
+option(USE_WERROR "Compiles using WError" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release." FORCE)
