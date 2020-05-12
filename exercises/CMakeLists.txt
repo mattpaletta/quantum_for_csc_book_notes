@@ -2,6 +2,7 @@ project(quantum_notes)
 cmake_minimum_required(VERSION 3.11)
 
 option(USE_WERROR "Compiles using WError" OFF)
+option(FORCE_DOWNLOAD_CATCH2 "Forces grabbing latest Catch2 instead of finding installed version" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release." FORCE)
@@ -37,16 +38,17 @@ elseif(${CMAKE_BUILD_TYPE} STREQUAL "DEBUG")
 endif()
 
 find_package(Catch2 QUIET)
-if (NOT Catch2_FOUND)
+
+if (FORCE_DOWNLOAD_CATCH2 OR NOT ${Catch2_FOUND})
 	include(FetchContent)
-	FetchContent_Declare(Catch2
+	FetchContent_Declare(catch2
 		GIT_REPOSITORY https://github.com/catchorg/Catch2
 		GIT_TAG v2.12.1)
-	FetchContent_GetProperties(Catch2)
-	if (NOT Catch2_POPULATED)
-		FetchContent_Populate(Catch2)
-		add_subdirectory(${Catch2_SOURCE_DIR} ${Catch2_BINARY_DIR} EXCLUDE_FROM_ALL)
+	FetchContent_GetProperties(catch2)
+	if (NOT catch2_POPULATED)
+		FetchContent_Populate(catch2)
 	endif()
+	add_subdirectory(${catch2_SOURCE_DIR} ${catch2_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/public")
