@@ -41,7 +41,7 @@ if (NOT Catch2_FOUND)
 	include(FetchContent)
 	FetchContent_Declare(Catch2
 		GIT_REPOSITORY https://github.com/catchorg/Catch2
-		GIT_TAG v2.21.1)
+		GIT_TAG v2.12.1)
 	FetchContent_GetProperties(Catch2)
 	if (NOT Catch2_POPULATED)
 		FetchContent_Populate(Catch2)
