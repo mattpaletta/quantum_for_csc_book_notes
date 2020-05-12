@@ -45,7 +45,7 @@ if (NOT Catch2_FOUND)
 	FetchContent_GetProperties(Catch2)
 	if (NOT Catch2_POPULATED)
 		FetchContent_Populate(Catch2)
-		add_subdirectory(${Catch2_SOURCE_DIR})
+		add_subdirectory(${Catch2_SOURCE_DIR} ${Catch2_BINARY_DIR} EXCLUDE_FROM_ALL)
 	endif()
 endif()
 
