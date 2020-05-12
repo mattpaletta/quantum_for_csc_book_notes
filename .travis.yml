@@ -30,6 +30,7 @@ script:
     - cd build
     - cmake -DUSE_WERROR=ON ../exercises
     - cmake --build .
+    - make test
 
 
 notifications:
