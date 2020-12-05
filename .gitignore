@@ -1,3 +1,7 @@
+.cache/
+**/*.swp
+build/
+
 # Prerequisites
 *.d
 
